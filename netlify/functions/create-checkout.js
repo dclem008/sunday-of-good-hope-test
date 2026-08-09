@@ -8,15 +8,13 @@ exports.handler = async (event) => {
     }
 
     try {
-        // Parse the data sent from your HTML file
-        const { amount, donorName } = JSON.parse(event.body);
-        
-        // Find out the URL of the website so Stripe knows where to send them back
+        // Parse ALL the data sent from your HTML file
+        const { amount, donorName, email, chapter, address, city, zip } = JSON.parse(event.body);
         const origin = event.headers.origin || event.headers.referer;
 
-        // Tell Stripe to generate a secure checkout page
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
+            customer_email: email, // This auto-fills their email on the Stripe screen!
             line_items: [{
                 price_data: {
                     currency: 'usd',
@@ -24,22 +22,24 @@ exports.handler = async (event) => {
                         name: 'Sunday of Good Hope Donation',
                         description: 'Kappa Alpha Psi - Palo Alto Alumni Chapter'
                     },
-                    unit_amount: amount * 100, // Stripe calculates everything in pennies! ($30 = 3000 pennies)
+                    unit_amount: amount * 100,
                 },
                 quantity: 1,
             }],
             mode: 'payment',
-            // If they pay successfully, send them back to the website with a "success=true" tag
             success_url: `${origin}?success=true`,
-            // If they hit the back button, send them back to the normal website
             cancel_url: `${origin}`,
+            // METADATA: This is where Stripe securely holds the info until they pay!
+            metadata: {
+                donorName: donorName,
+                chapter: chapter,
+                shippingAddress: address,
+                shippingCity: city,
+                shippingZip: zip
+            }
         });
 
-        // Send the secure Stripe URL back to the frontend
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ url: session.url })
-        };
+        return { statusCode: 200, body: JSON.stringify({ url: session.url }) };
     } catch (error) {
         return {
             statusCode: 500,
