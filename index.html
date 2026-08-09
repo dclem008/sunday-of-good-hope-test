@@ -716,16 +716,34 @@
                 submitBtn.textContent = "Processing...";
                 submitBtn.disabled = true;
 
-                // Capture details
+                 // Capture details
                 const donorName = document.getElementById('fullName').value.trim();
+                const email = document.getElementById('emailAddress').value.trim();
+                const chapter = document.getElementById('kappaChapter').value.trim() || "None";
+                
+                // Capture shipping if they qualified
+                let shippingAddress = "N/A";
+                let shippingCity = "N/A";
+                let shippingZip = "N/A";
+                
+                if (currentAmount >= 30) {
+                    shippingAddress = document.getElementById('streetAddress').value.trim();
+                    shippingCity = document.getElementById('city').value.trim();
+                    shippingZip = document.getElementById('zipCode').value.trim();
+                }
 
                 try {
-                    // 1. Send the amount and name to our secure Netlify backend
+                    // 1. Send ALL the data to our secure Netlify backend
                     const response = await fetch('/.netlify/functions/create-checkout', {
                         method: 'POST',
                         body: JSON.stringify({
                             amount: currentAmount,
-                            donorName: donorName
+                            donorName: donorName,
+                            email: email,
+                            chapter: chapter,
+                            address: shippingAddress,
+                            city: shippingCity,
+                            zip: shippingZip
                         })
                     });
 
