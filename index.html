@@ -618,6 +618,8 @@
             const progressAmountText = document.getElementById('progressAmountText');
             const percentTexts = document.querySelectorAll('.progress-percent-text');
 
+            currentAmountText.value = "$" + dbData.amountRaised; 
+
             // Function to update the visuals
             function updateProgressUI(amount) {
                 // Calculate percentage (cap at 100%)
@@ -644,6 +646,8 @@
                 percentTexts.forEach(span => {
                     span.textContent = `${percent.toFixed(1)}%`;
                 });
+
+                currentAmountText.textContent = "$" + amount;
             }
 
             // --- REAL-TIME DATABASE LISTENER ---
