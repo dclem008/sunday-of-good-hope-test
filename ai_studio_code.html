@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunday of Good Hope | St. Jude & Kappa Alpha Psi</title>
+    <style>
+        /* Base Variables & Reset */
+        :root {
+            --crimson-dark: #63050c;
+            --crimson-button: #8a0b16;
+            --gold-light: #f5e4ab;
+            --gold-mid: #dcb360;
+            --gold-dark: #b58835;
+            --bg-cream: #f9f6ef;
+            --text-dark: #1a1a1a;
+            --hero-bg: #111111;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1,
+        h2,
+        h3,
+        .serif {
+            font-family: 'Georgia', serif;
+        }
+
+        /* Top Header */
+        .header {
+            background: linear-gradient(to right, #5c0209, var(--crimson-dark), #5c0209);
+            color: white;
+            padding: 15px 0;
+            border-bottom: 3px solid var(--gold-mid);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-logos {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-family: 'Georgia', serif;
+        }
+
+        .logo-text {
+            font-size: 0.9rem;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+
+        .logo-divider {
+            width: 1px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .header-chapter {
+            font-size: 1rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--hero-bg);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom: 5px solid var(--crimson-dark);
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
+        }
+
+        .hero h1 {
+            color: var(--gold-light);
+            font-size: 3.2rem;
+            max-width: 900px;
+            margin: 0 auto 15px;
+            line-height: 1.15;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero h2 {
+            font-family: 'Arial', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 35px;
+            color: #eeeeee;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(to bottom, #a3111e, #63050c);
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 12px 35px;
+            font-size: 1.1rem;
+            border: 2px solid var(--gold-mid);
+            border-radius: 4px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(to bottom, #ba1423, #7a060f);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Main Content Section */
+        .main-content {
+            padding: 50px 0 80px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--crimson-dark);
+            font-weight: bold;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            margin-bottom: 40px;
+            line-height: 1.2;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 50px;
+        }
+
+        /* Left Column - Images & Progress */
+        .image-gallery {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .thumbnails {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100px;
+        }
+
+        .thumb-box {
+            text-align: center;
+            font-size: 0.6rem;
+            font-weight: bold;
+        }
+
+        .thumb-img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            background: black;
+        }
+
+        .main-image {
+            flex-grow: 1;
+        }
+
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .gold-container {
+            background: linear-gradient(135deg, #f7e8b6 0%, #d8ae53 100%);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .progress-header {
+            text-align: right;
+            font-weight: bold;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+
+        .progress-track {
+            background-color: #222;
+            height: 35px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 8px;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-fill {
+            background-color: var(--crimson-button);
+            height: 100%;
+            width: 28%;
+            display: flex;
+            align-items: center;
+            padding-left: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* Right Column - Text & Form */
+        .info-text p {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        .registration-form {
+            margin-top: 30px;
+        }
+
+        .registration-form h3 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .donation-selection {
+            margin: 20px 0;
+        }
+
+        .donation-selection label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .radio-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: bold;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .custom-input {
+            border: none;
+            border-bottom: 2px solid #333;
+            background: transparent;
+            width: 60px;
+            font-weight: bold;
+            font-size: 1rem;
+            outline: none;
+            padding: 2px 5px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        /* Shipping Logic */
+        .shipping-section {
+            background-color: rgba(255, 255, 255, 0.4);
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+            border-left: 4px solid var(--crimson-button);
+            max-height: 500px;
+            opacity: 1;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .shipping-section.hidden {
+            max-height: 0;
+            opacity: 0;
+            padding: 0 15px;
+            margin-top: 0;
+            border: none;
+        }
+
+        .shipping-section p {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .shipping-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        /* Post Submission State */
+        .thank-you-state {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .thank-you-state h3 {
+            color: var(--crimson-dark);
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--crimson-dark);
+            color: #ddd;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: #ddd;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer a:hover {
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 850px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header .container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Red Banner -->
+    <header class="header">
+        <div class="container">
+            <div class="header-logos">
+                <div class="logo-text">
+                    <span style="font-size:1.2rem; font-weight:bold;">K</span><br>
+                    St. Jude<br>Sunday of<br>Good Hope
+                </div>
+                <div class="logo-divider"></div>
+                <div class="logo-text" style="text-transform: none;">
+                    <strong>St. Jude Children's</strong><br>Research Hospital
+                </div>
+            </div>
+            <div class="header-chapter">
+                PALO ALTO ALUMNI CHAPTER
+            </div>
+        </div>
+    </header>
+
+    <!-- Dark Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Achievement in Every Field<br>Meets Life-Saving Hope.</h1>
+            <h2>JOIN THE PALO ALTO KAPPAS IN SUPPORTING ST. JUDE'S CHILDREN.</h2>
+            <a href="#register" class="btn-primary">[REGISTER & DONATE NOW]</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="container">
+
+            <div class="section-subtitle">EXCLUSIVE DONOR INCENTIVE SECTION</div>
+            <h2 class="section-title">Your Gift for Leadership & Service:<br>The Limited-Edition Klassic Kappa
+                Commemorative Coin.</h2>
+
+            <div class="content-grid">
+
+                <!-- Left Column (Images and Progress Bar) -->
+                <div class="left-col">
+                    <div class="image-gallery">
+                        <!-- Simulated Thumbnails using the same source -->
+                        <div class="thumbnails">
+                            <div class="thumb-box">
+                                <img src="kappa-coin.jpg" alt="Face Detail" class="thumb-img"
+                                    style="object-position: 20% 50%;">
+                                Face Detail (Elder Diggs)
+                            </div>
+                            <div class="thumb-box">
+                                <img src="kappa-coin.jpg" alt="Diamond Detail" class="thumb-img"
+                                    style="object-position: 80% 50%;">
+                                Diamond Backing Detail
+                            </div>
+                            <div class="thumb-box">
+                                <img src="kappa-coin.jpg" alt="Edge View" class="thumb-img"
+                                    style="object-position: 50% 100%;">
+                                Edge View in Box
+                            </div>
+                        </div>
+                        <div class="main-image">
+                            <img src="kappa-coin.jpg" alt="Klassic Kappa Commemorative Challenge Coin">
+                        </div>
+                    </div>
+
+                    <div class="gold-container">
+                        <div class="progress-header"><span id="currentAmountText"></span> of $5,000 Goal</div>
+                        <div class="progress-track">
+                            <!-- Added ID and set initial width to 0% -->
+                            <div class="progress-fill" id="progressBarFill" style="width: 0%;">
+                                <span id="progressAmountText"></span>
+                            </div>
+                        </div>
+                        <div class="progress-labels">
+                            <!-- Added IDs -->
+                            <span class="progress-percent-text">0%</span>
+                            <span class="progress-percent-text">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column (Info and Form) -->
+                <div class="right-col">
+                    <div class="info-text" id="register">
+                        <p>Donate $30 or more to receive this custom-minted challenge coin, honoring Kappa Alpha Psi
+                            Founder Elder Watson Diggs and the Palo Alto Sunday of Good Hope mission.</p>
+                        <p>Face features the detailed portrait; Reverse features the Palo Alto Sunday of Good Hope
+                            Crimson Diamond Insignia.</p>
+                        <p style="font-weight: bold; margin-bottom: 25px;">While supplies last.</p>
+                    </div>
+
+                    <!-- Gold Form Box -->
+                    <div class="gold-container registration-form">
+
+                        <!-- Initial Form View -->
+                        <form id="donationForm">
+                            <h3>Attendee Registration</h3>
+
+                            <input type="text" id="fullName" class="form-input" placeholder="[Full Name]" required>
+                            <input type="email" id="emailAddress" class="form-input" placeholder="[Email]" required>
+                            <input type="text" id="kappaChapter" class="form-input"
+                                placeholder="[Kappa Chapter (Optional)]">
+
+                            <div class="donation-selection">
+                                <label>Select Donation Amount:</label>
+                                <div class="radio-group">
+                                    <label class="radio-option">
+                                        <input type="radio" name="amount" value="30" checked> $30
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="amount" value="50"> $50
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="amount" value="100"> $100
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="amount" id="customRadio" value="custom"> $
+                                        <input type="number" id="customInput" class="custom-input" min="1">
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Expandable Shipping Section -->
+                            <div class="shipping-section" id="shippingSection">
+                                <p>Coin Qualified! Please enter shipping address:</p>
+                                <input type="text" id="streetAddress" class="form-input" placeholder="[Street Address]">
+                                <div class="shipping-grid">
+                                    <input type="text" id="city" class="form-input" placeholder="[City]">
+                                    <input type="text" id="zipCode" class="form-input" placeholder="[Zip Code]">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-primary btn-submit" id="submitBtn">[Donate & Receive
+                                Coin]</button>
+                        </form>
+
+                        <!-- Success View (Hidden by default) -->
+                        <div id="successView" class="thank-you-state">
+                            <h3>Registration Complete!</h3>
+                            <p>Thank you, <strong id="receiptName"></strong>, for supporting St. Jude Children's
+                                Research Hospital alongside the Palo Alto Alumni Chapter.</p>
+                            <p style="margin: 20px 0; font-size: 1.2rem;"><strong>Amount Donated: <span
+                                        id="receiptAmount"></span></strong></p>
+                            <p id="coinConfirmation" style="font-style: italic;"></p>
+
+                            <!-- NEW BUTTON ADDED HERE -->
+                            <button type="button" id="donateAgainBtn" class="btn-primary"
+                                style="margin-top: 25px; width: 100%;">[Make Another Donation]</button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <a href="#">Contact Us</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms</a>
+        </div>
+    </footer>
+
+    <!-- Interactive Logic -->
+    <script type="module">
+
+        // Import the functions you need from the SDKs you need
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js"; // <--- FIXED VERSION HERE
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const firebaseConfig = {
+                apiKey: "AIzaSyA3Dhvnm9bjF_5cyptI_1Kfp6Oyhsx-r3o",
+                authDomain: "kappa-fundraiser-test.firebaseapp.com",
+                projectId: "kappa-fundraiser-test",
+                storageBucket: "kappa-fundraiser-test.firebasestorage.app",
+                messagingSenderId: "1052453349356",
+                appId: "1:1052453349356:web:df1b29c7fd4a8343e902c9",
+                measurementId: "G-Q14K98DYFC"
+            };
+
+            // Initialize Firebase and Firestore
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
+            const db = getFirestore(app);
+
+            const currentAmountText = document.getElementById('currentAmountText')
+            const form = document.getElementById('donationForm');
+            const radios = document.querySelectorAll('input[name="amount"]');
+            const customRadio = document.getElementById('customRadio');
+            const customInput = document.getElementById('customInput');
+
+            const shippingSection = document.getElementById('shippingSection');
+            const shippingInputs = shippingSection.querySelectorAll('input');
+            const submitBtn = document.getElementById('submitBtn');
+
+            const successView = document.getElementById('successView');
+            const receiptName = document.getElementById('receiptName');
+            const receiptAmount = document.getElementById('receiptAmount');
+            const coinConfirmation = document.getElementById('coinConfirmation');
+            const donateAgainBtn = document.getElementById('donateAgainBtn'); // New Button Reference
+
+            let currentAmount = 30;
+            // --- NEW DYNAMIC PROGRESS BAR LOGIC ---
+            const GOAL_AMOUNT = 5000;
+            let totalRaised = 0; // This will eventually be fetched from your database
+
+            const progressBarFill = document.getElementById('progressBarFill');
+            const progressAmountText = document.getElementById('progressAmountText');
+            const percentTexts = document.querySelectorAll('.progress-percent-text');
+
+            // Function to update the visuals
+            function updateProgressUI(amount) {
+                // Calculate percentage (cap at 100%)
+                let percent = (amount / GOAL_AMOUNT) * 100;
+                if (percent > 100) percent = 100;
+
+                // Format the number to look like currency (e.g., $1,000)
+                const formattedAmount = '$' + amount.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                });
+
+                // Animate the bar width
+                progressBarFill.style.width = `${percent}%`;
+
+                // Only show the dollar amount inside the bar if it's wide enough to fit the text (e.g., > 10%)
+                if (percent > 10) {
+                    progressAmountText.textContent = formattedAmount;
+                } else {
+                    progressAmountText.textContent = "";
+                }
+
+                // Update the % labels under the bar
+                percentTexts.forEach(span => {
+                    span.textContent = `${percent.toFixed(1)}%`;
+                });
+            }
+
+            // --- REAL-TIME DATABASE LISTENER ---
+            // It constantly listens to the "test_totals" document in the "fundraiser" collection.
+            const totalRef = doc(db, "fundraiser", "test_totals");
+
+            onSnapshot(totalRef, (docSnapshot) => {
+                if (docSnapshot.exists()) {
+                    const dbData = docSnapshot.data();
+                    const liveTotal = dbData.amountRaised || 0;
+                    updateProgressUI(liveTotal); // Update the bar automatically!
+                }
+            });
+
+            // Handle Logic for Hiding/Showing Shipping Details
+            const updateShippingVisibility = (amount) => {
+                if (amount >= 30) {
+                    shippingSection.classList.remove('hidden');
+                    shippingInputs.forEach(input => input.setAttribute('required', 'true'));
+                    submitBtn.textContent = "[Donate & Receive Coin]";
+                } else {
+                    shippingSection.classList.add('hidden');
+                    shippingInputs.forEach(input => input.removeAttribute('required'));
+                    submitBtn.textContent = "[Donate Now]";
+                }
+            };
+
+            // Listen for Radio Button changes
+            radios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    if (e.target.value !== 'custom') {
+                        currentAmount = parseFloat(e.target.value);
+                        customInput.value = ''; // clear custom input
+                        updateShippingVisibility(currentAmount);
+                    }
+                });
+            });
+
+            // Listen for Custom Input changes
+            customInput.addEventListener('input', (e) => {
+                customRadio.checked = true; // Auto-select custom radio
+                const val = parseFloat(e.target.value);
+                currentAmount = val > 0 ? val : 0;
+                updateShippingVisibility(currentAmount);
+            });
+
+            // --- NEW: CHECK IF WE JUST CAME BACK FROM STRIPE ---
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === 'true') {
+                // Hide the form and show the thank you screen
+                form.style.display = 'none';
+                successView.style.display = 'block';
+                
+                // Show a generic success message (since they already paid)
+                receiptName.textContent = "Supporter";
+                receiptAmount.textContent = "Thank you for your generous gift!";
+                coinConfirmation.textContent = "If your donation qualified, your Commemorative Coin will be shipped soon.";
+                
+                // Clean up the URL so it looks nice again (removes the ?success=true)
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            // --- NEW: STRIPE CHECKOUT FORM SUBMISSION ---
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Prevent page reload
+
+                // Change the button text to show it's working
+                submitBtn.textContent = "Processing...";
+                submitBtn.disabled = true;
+
+                // Capture details
+                const donorName = document.getElementById('fullName').value.trim();
+
+                try {
+                    // 1. Send the amount and name to our secure Netlify backend
+                    const response = await fetch('/.netlify/functions/create-checkout', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            amount: currentAmount,
+                            donorName: donorName
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    // 2. If the backend replies with a Stripe URL, redirect the user there!
+                    if (data.url) {
+                        window.location.href = data.url;
+                    } else {
+                        alert("Error: " + data.error);
+                        submitBtn.textContent = "[Donate & Receive Coin]";
+                        submitBtn.disabled = false;
+                    }
+                } catch (err) {
+                    alert("Something went wrong connecting to the checkout.");
+                    submitBtn.textContent = "[Donate & Receive Coin]";
+                    submitBtn.disabled = false;
+                }
+            });
+
+            // --- NEW: DONATE AGAIN LOGIC ---
+            donateAgainBtn.addEventListener('click', () => {
+                // 1. Reset all the typed input fields in the form to blank
+                form.reset();
+
+                // 2. Reset our internal tracker back to the default $30
+                currentAmount = 30;
+
+                // 3. Make sure the shipping section is visible again (since default is $30)
+                updateShippingVisibility(currentAmount);
+
+                // 4. Swap the views: Hide success, Show form
+                successView.style.display = 'none';
+                form.style.display = 'block';
+
+                // 5. Scroll smoothly back to the top of the form
+                form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+        });
+    </script>
+</body>
+
+</html>
