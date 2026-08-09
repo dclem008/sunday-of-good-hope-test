@@ -31,21 +31,35 @@ exports.handler = async (event) => {
     // 3. If it's a successful checkout, update the database!
     if (stripeEvent.type === 'checkout.session.completed') {
         const session = stripeEvent.data.object;
-        
-        // Stripe sends money in pennies, so we divide by 100 to get dollars
         const amountDonated = session.amount_total / 100; 
-
-        // Point to our test totals document
-        const totalRef = db.collection('fundraiser').doc('test_totals');
         
+        // Grab the hidden metadata we passed earlier
+        const meta = session.metadata;
+
         try {
-            // Safely add the new donation amount (or create the doc if missing)
+            // TASK A: Update the Progress Bar Total
+            const totalRef = db.collection('fundraiser').doc('test_totals');
             await totalRef.set({
                 amountRaised: admin.firestore.FieldValue.increment(amountDonated)
             }, { merge: true });
             
-            console.log(`Successfully added $${amountDonated} to Firebase.`);
-        }catch (err) {
+            // TASK B: Save the Donor's Info for Fulfillment
+            // This creates a brand new document in a collection called "donors"
+            await db.collection('donors').add({
+                name: meta.donorName,
+                email: session.customer_details?.email || "Unknown",
+                chapter: meta.chapter,
+                amount: amountDonated,
+                qualifiesForCoin: amountDonated >= 30,
+                shippingAddress: meta.shippingAddress,
+                shippingCity: meta.shippingCity,
+                shippingZip: meta.shippingZip,
+                date: admin.firestore.FieldValue.serverTimestamp(),
+                stripeTransactionId: session.id
+            });
+
+            console.log(`Success! Added $${amountDonated} and saved donor: ${meta.donorName}`);
+        } catch (err) {
             console.error('Error updating Firebase:', err);
             return { statusCode: 500, body: 'Firebase update failed' };
         }
