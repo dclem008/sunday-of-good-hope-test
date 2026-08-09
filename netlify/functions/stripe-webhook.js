@@ -39,12 +39,13 @@ exports.handler = async (event) => {
         const totalRef = db.collection('fundraiser').doc('test_totals');
         
         try {
-            // Safely add the new donation amount to the current total
-            await totalRef.update({
+            // Safely add the new donation amount (or create the doc if missing)
+            await totalRef.set({
                 amountRaised: admin.firestore.FieldValue.increment(amountDonated)
-            });
+            }, { merge: true });
+            
             console.log(`Successfully added $${amountDonated} to Firebase.`);
-        } catch (err) {
+        }catch (err) {
             console.error('Error updating Firebase:', err);
             return { statusCode: 500, body: 'Firebase update failed' };
         }
