@@ -9,6 +9,22 @@ exports.handler = async (event) => {
         const { amount, donorName, email, chapter, address, city, zip, shippingFee } = JSON.parse(event.body);
         const origin = event.headers.origin || event.headers.referer;
 
+        // 1. Enforce minimum Stripe amounts (Stripe requires at least $0.50, we enforce $1.00)
+        if (typeof amount !== 'number' || amount < 1) {
+            throw new Error("Invalid donation amount.");
+        }
+        
+        // 2. Prevent Shipping Fee tampering (Force it to be exactly 0 or 5)
+        // Note: Change '5' if you updated your shipping fee earlier!
+        if (shippingFee !== 0 && shippingFee !== 2.50) {
+            throw new Error("Invalid shipping fee.");
+        }
+
+        // 3. Prevent database overload by capping text length
+        if (donorName.length > 100 || email.length > 100) {
+            throw new Error("Input text is too long.");
+        }
+
         // 1. Create the base donation item
         const lineItems = [{
             price_data: {
