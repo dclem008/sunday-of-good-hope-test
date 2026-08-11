@@ -5,565 +5,299 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sunday of Good Hope | St. Jude & Kappa Alpha Psi</title>
+    
+    <!-- Modern Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+
     <style>
-        /* Base Variables & Reset */
+        /* Modern CSS Variables */
         :root {
-            --crimson-dark: #63050c;
-            --crimson-button: #8a0b16;
-            --gold-light: #f5e4ab;
-            --gold-mid: #dcb360;
-            --gold-dark: #b58835;
-            --bg-cream: #f9f6ef;
-            --text-dark: #1a1a1a;
-            --hero-bg: #111111;
+            --primary: #9E1B32; /* Crisp Crimson */
+            --primary-hover: #7A1527;
+            --accent-gold: #D4AF37;
+            --accent-gold-light: #F4E2A6;
+            --bg-page: #F4F7F9; /* Cool light gray for depth */
+            --bg-card: #FFFFFF;
+            --text-main: #1A202C;
+            --text-muted: #718096;
+            --border-light: #E2E8F0;
+            --radius-lg: 16px;
+            --radius-sm: 8px;
+            --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --transition: all 0.3s ease;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-        }
+        /* Base & Reset */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: var(--bg-page); color: var(--text-main); font-family: 'Inter', sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
 
-        body {
-            background-color: var(--bg-cream);
-            color: var(--text-dark);
-            line-height: 1.5;
-        }
+        .container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        /* Clean Header */
+        .header { background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); padding: 15px 0; position: sticky; top: 0; z-index: 100; border-top: 4px solid var(--primary); }
+        .header .container { display: flex; justify-content: space-between; align-items: center; }
+        .header-logos { display: flex; align-items: center; gap: 20px; }
+        .logo-text { font-size: 0.9rem; line-height: 1.3; font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
+        .logo-text img { height: 40px; width: auto; border-radius: 4px; }
+        .logo-divider { width: 1px; height: 35px; background-color: var(--border-light); }
+        .header-chapter { font-size: 0.85rem; font-weight: 700; letter-spacing: 1.2px; color: var(--text-muted); text-transform: uppercase; }
 
-        h1,
-        h2,
-        h3,
-        .serif {
-            font-family: 'Georgia', serif;
-        }
+        /* Immersive Hero Section */
+        .hero { background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%); color: white; text-align: center; padding: 90px 20px 140px; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at top right, rgba(158, 27, 50, 0.15) 0%, transparent 60%); pointer-events: none; }
+        .hero h1 { color: #fff; font-size: 3.5rem; max-width: 900px; margin: 0 auto 20px; line-height: 1.2; font-weight: 700; }
+        .hero h1 span { color: var(--accent-gold); font-style: italic; }
+        .hero h2 { font-family: 'Inter', sans-serif; font-size: 1.1rem; letter-spacing: 2px; font-weight: 500; color: #cbd5e0; text-transform: uppercase; margin-bottom: 0; }
 
-        /* Top Header */
-        .header {
-            background: linear-gradient(to right, #5c0209, var(--crimson-dark), #5c0209);
-            color: white;
-            padding: 15px 0;
-            border-bottom: 3px solid var(--gold-mid);
-        }
+        /* Overlapping Main Content */
+        .main-content { margin-top: -80px; padding-bottom: 80px; position: relative; z-index: 10; }
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
 
-        .header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        /* Premium Floating Cards */
+        .premium-card { background: var(--bg-card); border-radius: var(--radius-lg); padding: 40px; box-shadow: var(--shadow-soft); border: 1px solid rgba(255,255,255,0.8); }
 
-        .header-logos {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-family: 'Georgia', serif;
-        }
+        /* Left Column - Product Gallery & Progress */
+        .gallery-wrap { display: flex; gap: 20px; margin-bottom: 30px; }
+        .thumbnails { display: flex; flex-direction: column; gap: 15px; width: 80px; }
+        .thumb-img { width: 80px; height: 80px; object-fit: cover; border-radius: var(--radius-sm); border: 2px solid transparent; cursor: pointer; transition: var(--transition); background: #f8f9fa; }
+        .thumb-img:hover { border-color: var(--primary); transform: translateY(-2px); }
+        .main-image { flex-grow: 1; border-radius: var(--radius-sm); overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .main-image img { width: 100%; height: auto; display: block; }
 
-        .logo-text {
-            font-size: 0.9rem;
-            line-height: 1.2;
-            text-transform: uppercase;
-        }
+        /* Sleek Progress Bar */
+        .progress-section { margin-top: 30px; }
+        .progress-header { display: flex; justify-content: space-between; font-weight: 600; color: var(--text-main); margin-bottom: 12px; font-size: 1.1rem; }
+        .progress-header span:first-child { color: var(--primary); font-size: 1.3rem; font-weight: 700; }
+        .progress-track { background-color: #EDF2F7; height: 16px; border-radius: 50px; overflow: hidden; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
+        .progress-fill { background: linear-gradient(90deg, var(--primary) 0%, #e53e3e 100%); height: 100%; width: 0%; border-radius: 50px; transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); position: relative; }
+        /* Animated Shine Effect on Progress Bar */
+        .progress-fill::after { content: ''; position: absolute; top: 0; left: 0; bottom: 0; right: 0; background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%); animation: shimmer 2s infinite; }
+        @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
 
-        .logo-divider {
-            width: 1px;
-            height: 30px;
-            background-color: rgba(255, 255, 255, 0.4);
-        }
+        /* Right Column - Registration Form */
+        .registration-form h3 { font-size: 1.8rem; margin-bottom: 8px; color: var(--text-main); }
+        .form-subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px; line-height: 1.5; }
+        
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; font-weight: 600; margin-bottom: 8px; color: #4A5568; font-size: 0.9rem; }
+        
+        /* Modern Inputs */
+        .form-input { width: 100%; padding: 14px 16px; border: 1px solid var(--border-light); border-radius: var(--radius-sm); font-size: 1rem; color: var(--text-main); transition: var(--transition); background: #F7FAFC; outline: none; }
+        .form-input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px rgba(158, 27, 50, 0.1); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
-        .header-chapter {
-            font-size: 1rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
+        /* High-Conversion Donation Tiers */
+        .donation-tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 12px; }
+        .tier-label { position: relative; cursor: pointer; }
+        .tier-label input[type="radio"] { position: absolute; opacity: 0; }
+        .tier-box { display: flex; align-items: center; justify-content: center; height: 60px; border: 2px solid var(--border-light); border-radius: var(--radius-sm); font-size: 1.2rem; font-weight: 600; color: var(--text-muted); transition: var(--transition); background: #fff; }
+        .tier-label:hover .tier-box { border-color: #cbd5e0; background: #F7FAFC; }
+        /* Checked State */
+        .tier-label input[type="radio"]:checked + .tier-box { border-color: var(--primary); background: #FFF5F7; color: var(--primary); box-shadow: 0 4px 10px rgba(158, 27, 50, 0.1); }
 
-        /* Hero Section */
-        .hero {
-            background-color: var(--hero-bg);
-            color: white;
-            text-align: center;
-            padding: 60px 20px;
-            border-bottom: 5px solid var(--crimson-dark);
-            position: relative;
-        }
+        /* Custom Amount Input integration */
+        .custom-amount-wrapper { display: flex; align-items: center; border: 2px solid var(--border-light); border-radius: var(--radius-sm); padding: 0 15px; height: 60px; background: #fff; transition: var(--transition); }
+        .custom-amount-wrapper:focus-within { border-color: var(--primary); background: #FFF5F7; box-shadow: 0 4px 10px rgba(158, 27, 50, 0.1); }
+        .custom-amount-wrapper span { color: var(--text-muted); font-size: 1.2rem; font-weight: 600; }
+        .custom-input { border: none; background: transparent; width: 100%; padding: 10px; font-size: 1.2rem; font-weight: 600; color: var(--text-main); outline: none; }
+        .custom-input::placeholder { color: #A0AEC0; font-weight: 400; font-size: 1rem; }
 
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
-        }
+        /* Shipping Box */
+        .shipping-section { background-color: #F7FAFC; border: 1px solid var(--border-light); padding: 20px; border-radius: var(--radius-sm); margin-top: 25px; transition: var(--transition); }
+        .shipping-section.hidden { display: none; }
+        .checkbox-wrapper { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; margin-bottom: 20px; }
+        .checkbox-wrapper input[type="checkbox"] { width: 22px; height: 22px; margin-top: 2px; cursor: pointer; accent-color: var(--primary); }
+        .checkbox-text strong { color: var(--text-main); display: block; font-size: 1rem; }
+        .checkbox-text small { color: var(--primary); font-weight: 600; font-size: 0.85rem; }
 
-        .hero h1 {
-            color: var(--gold-light);
-            font-size: 3.2rem;
-            max-width: 900px;
-            margin: 0 auto 15px;
-            line-height: 1.15;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .hero h2 {
-            font-family: 'Arial', sans-serif;
-            font-size: 1.1rem;
-            letter-spacing: 1.5px;
-            margin-bottom: 35px;
-            color: #eeeeee;
-        }
-
-        .btn-primary {
-            display: inline-block;
-            background: linear-gradient(to bottom, #a3111e, #63050c);
-            color: white;
-            font-weight: bold;
-            text-decoration: none;
-            padding: 12px 35px;
-            font-size: 1.1rem;
-            border: 2px solid var(--gold-mid);
-            border-radius: 4px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(to bottom, #ba1423, #7a060f);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Main Content Section */
-        .main-content {
-            padding: 50px 0 80px;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--crimson-dark);
-            font-weight: bold;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.2rem;
-            color: var(--text-dark);
-            margin-bottom: 40px;
-            line-height: 1.2;
-        }
-
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 50px;
-        }
-
-        /* Left Column - Images & Progress */
-        .image-gallery {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .thumbnails {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100px;
-        }
-
-        .thumb-box {
-            text-align: center;
-            font-size: 0.6rem;
-            font-weight: bold;
-        }
-
-        .thumb-img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-bottom: 5px;
-            background: black;
-        }
-
-        .main-image {
-            flex-grow: 1;
-        }
-
-        .main-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 4px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .gold-container {
-            background: linear-gradient(135deg, #f7e8b6 0%, #d8ae53 100%);
-            border-radius: 8px;
-            padding: 25px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
-
-        .progress-header {
-            text-align: right;
-            font-weight: bold;
-            font-size: 0.95rem;
-            margin-bottom: 5px;
-        }
-
-        .progress-track {
-            background-color: #222;
-            height: 35px;
-            border-radius: 20px;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 8px;
-            border: 2px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .progress-fill {
-            background-color: var(--crimson-button);
-            height: 100%;
-            width: 28%;
-            display: flex;
-            align-items: center;
-            padding-left: 15px;
-            color: white;
-            font-weight: bold;
-            font-size: 0.95rem;
-        }
-
-        .progress-labels {
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-
-        /* Right Column - Text & Form */
-        .info-text p {
-            margin-bottom: 15px;
-            font-size: 1.05rem;
-        }
-
-        .registration-form {
-            margin-top: 30px;
-        }
-
-        .registration-form h3 {
-            text-align: center;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 12px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        .donation-selection {
-            margin: 20px 0;
-        }
-
-        .donation-selection label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .radio-group {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-weight: bold;
-        }
-
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-        }
-
-        .custom-input {
-            border: none;
-            border-bottom: 2px solid #333;
-            background: transparent;
-            width: 60px;
-            font-weight: bold;
-            font-size: 1rem;
-            outline: none;
-            padding: 2px 5px;
-        }
-
-        .btn-submit {
-            width: 100%;
-            margin-top: 15px;
-            text-align: center;
-        }
-
-        /* Shipping Logic */
-        .shipping-section {
-            background-color: rgba(255, 255, 255, 0.4);
-            padding: 15px;
-            border-radius: 4px;
-            margin-top: 15px;
-            border-left: 4px solid var(--crimson-button);
-            max-height: 500px;
-            opacity: 1;
-            overflow: hidden;
-            transition: all 0.4s ease;
-        }
-
-        .shipping-section.hidden {
-            max-height: 0;
-            opacity: 0;
-            padding: 0 15px;
-            margin-top: 0;
-            border: none;
-        }
-
-        .shipping-section p {
-            font-size: 0.9rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .shipping-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
+        /* Action Buttons */
+        .btn-primary { width: 100%; display: block; background: var(--primary); color: white; text-align: center; border: none; padding: 18px; font-size: 1.15rem; font-weight: 700; border-radius: var(--radius-sm); cursor: pointer; transition: var(--transition); box-shadow: 0 4px 14px rgba(158, 27, 50, 0.3); margin-top: 30px; font-family: 'Inter', sans-serif; }
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(158, 27, 50, 0.4); }
+        .btn-primary:disabled { background: #A0AEC0; cursor: not-allowed; transform: none; box-shadow: none; }
+        
+        .secure-badge { text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .secure-badge svg { width: 14px; height: 14px; fill: currentColor; }
 
         /* Post Submission State */
-        .thank-you-state {
-            display: none;
-            text-align: center;
-            padding: 30px;
-        }
-
-        .thank-you-state h3 {
-            color: var(--crimson-dark);
-            margin-bottom: 15px;
-        }
+        .thank-you-state { display: none; text-align: center; padding: 40px 20px; }
+        .success-icon { width: 80px; height: 80px; background: #C6F6D5; color: #2F855A; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 20px; }
+        .thank-you-state h3 { font-size: 2.2rem; color: var(--text-main); margin-bottom: 15px; }
+        .thank-you-state p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 25px; }
+        .receipt-box { background: #F7FAFC; border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 25px; margin-bottom: 30px; }
 
         /* Footer */
-        .footer {
-            background-color: var(--crimson-dark);
-            color: #ddd;
-            text-align: center;
-            padding: 20px 0;
-            font-size: 0.9rem;
-        }
-
-        .footer a {
-            color: #ddd;
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-        .footer a:hover {
-            color: white;
-        }
+        .footer { background-color: #fff; border-top: 1px solid var(--border-light); color: var(--text-muted); text-align: center; padding: 30px 0; font-size: 0.9rem; margin-top: 40px; }
+        .footer a { color: var(--text-muted); text-decoration: none; margin: 0 15px; transition: var(--transition); }
+        .footer a:hover { color: var(--primary); }
 
         /* Responsive */
-        @media (max-width: 850px) {
-            .content-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .header .container {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .hero h1 {
-                font-size: 2.2rem;
-            }
+        @media (max-width: 900px) {
+            .content-grid { grid-template-columns: 1fr; gap: 30px; }
+            .main-content { margin-top: -40px; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero { padding: 60px 20px 100px; }
+            .donation-tiers { grid-template-columns: 1fr 1fr; }
+            .custom-amount-wrapper { grid-column: span 2; }
+            .form-row { grid-template-columns: 1fr; }
+            .header-chapter { display: none; } /* Hide long text on mobile */
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Top Red Banner -->
+    <!-- Modern Clean Header -->
     <header class="header">
         <div class="container">
             <div class="header-logos">
                 <div class="logo-text">
-                    <img src="st-jude-logo.jpg" alt="St. Jude Logo" class="thumb-img"
-                                    style="object-position: 20% 50%;"><br>
-                    St. Jude<br>Sunday of<br>Good Hope
-                </div>
-                <div class="logo-divider"></div>
-                <div class="logo-text" style="text-transform: none;">
-                    <strong>St. Jude Children's</strong><br>Research Hospital
+                    <img src="st-jude-logo.jpg" alt="St. Jude Logo">
+                    Sunday of Good Hope
                 </div>
             </div>
             <div class="header-chapter">
-                PALO ALTO ALUMNI CHAPTER
+                Palo Alto Alumni Chapter
             </div>
         </div>
     </header>
 
-    <!-- Dark Hero Section -->
+    <!-- Immersive Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>Achievement in Every Field of Human Endeavor<br>Meets Life-Saving Hope.</h1>
-            <h2>JOIN THE PALO ALTO KAPPAS IN SUPPORTING ST. JUDE'S CHILDREN.</h2>
-            <a href="#register" class="btn-primary">[REGISTER & DONATE NOW]</a>
+            <h1>Achievement in Every Field<br>Meets <span>Life-Saving Hope.</span></h1>
+            <h2>Join the Palo Alto Kappas in supporting St. Jude's Children.</h2>
         </div>
     </section>
 
-    <!-- Main Content -->
+    <!-- Main Content (Floating Upwards) -->
     <section class="main-content">
         <div class="container">
-
-            <div class="section-subtitle">EXCLUSIVE DONOR INCENTIVE SECTION</div>
-            <h2 class="section-title">Your Gift for Leadership & Service:<br>The Limited-Edition Klassic Kappa
-                Commemorative Coin.</h2>
-
             <div class="content-grid">
 
-                <!-- Left Column (Images and Progress Bar) -->
+                <!-- Left Column: Product & Goal -->
                 <div class="left-col">
-                    <div class="image-gallery">
-                        <!-- Simulated Thumbnails using the same source -->
-                        <div class="thumbnails">
-                            <div class="thumb-box">
-                                <img src="kappa-coin.jpg" alt="Face Detail" class="thumb-img"
-                                    style="object-position: 20% 50%;">
-                                Face Detail (Elder Diggs)
+                    <div class="premium-card">
+                        
+                        <!-- Sleek Image Gallery -->
+                        <div class="gallery-wrap">
+                            <div class="thumbnails">
+                                <img src="kappa-coin.jpg" alt="Face Detail" class="thumb-img" style="object-position: 20% 50%;">
+                                <img src="kappa-coin.jpg" alt="Diamond Detail" class="thumb-img" style="object-position: 80% 50%;">
+                                <img src="kappa-coin.jpg" alt="Edge View" class="thumb-img" style="object-position: 50% 100%;">
                             </div>
-                            <div class="thumb-box">
-                                <img src="kappa-coin.jpg" alt="Diamond Detail" class="thumb-img"
-                                    style="object-position: 80% 50%;">
-                                Diamond Backing Detail
-                            </div>
-                            <div class="thumb-box">
-                                <img src="kappa-coin.jpg" alt="Edge View" class="thumb-img"
-                                    style="object-position: 50% 100%;">
-                                Edge View in Box
+                            <div class="main-image">
+                                <img src="kappa-coin.jpg" alt="Klassic Kappa Commemorative Challenge Coin">
                             </div>
                         </div>
-                        <div class="main-image">
-                            <img src="kappa-coin.jpg" alt="Klassic Kappa Commemorative Challenge Coin">
-                        </div>
-                    </div>
 
-                    <div class="gold-container">
-                        <div class="progress-header"><span id="currentAmountText"></span> of $5,000 Goal</div>
-                        <div class="progress-track">
-                            <!-- Added ID and set initial width to 0% -->
-                            <div class="progress-fill" id="progressBarFill" style="width: 0%;">
-                                <span id="progressAmountText"></span>
+                        <!-- Progress Tracker -->
+                        <div class="progress-section">
+                            <div class="progress-header">
+                                <span id="currentAmountText">$0</span>
+                                <span>Goal: $5,000</span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill" id="progressBarFill" style="width: 0%;"></div>
                             </div>
                         </div>
-                        <div class="progress-labels">
-                            <!-- Added IDs -->
-                            <span class="progress-percent-text">0%</span>
-                            <span class="progress-percent-text">0%</span>
-                        </div>
+
                     </div>
                 </div>
 
-                <!-- Right Column (Info and Form) -->
+                <!-- Right Column: Interactive Form -->
                 <div class="right-col">
-                    <div class="info-text" id="register">
-                        <p>Donate $30 or more to receive this custom-minted challenge coin, honoring Kappa Alpha Psi
-                            Founder Elder Watson Diggs and the Palo Alto Sunday of Good Hope mission.</p>
-                        <p>Face features the detailed portrait; Reverse features the Palo Alto Sunday of Good Hope
-                            Crimson Diamond Insignia.</p>
-                        <p style="font-weight: bold; margin-bottom: 25px;">While supplies last.</p>
-                    </div>
+                    <div class="premium-card registration-form">
 
-                    <!-- Gold Form Box -->
-                    <div class="gold-container registration-form">
-
-                        <!-- Initial Form View -->
                         <form id="donationForm">
-                            <h3>Donor Information</h3>
+                            <h3>Make a Donation</h3>
+                            <p class="form-subtitle">Donate <strong>$30 or more</strong> to receive the limited-edition Klassic Kappa Commemorative Coin while supplies last.</p>
 
-                            <input type="text" id="fullName" class="form-input" placeholder="[Full Name]" required>
-                            <input type="email" id="emailAddress" class="form-input" placeholder="[Email]" required>
-                            <input type="text" id="kappaChapter" class="form-input"
-                                placeholder="[Kappa Chapter (Optional)]">
+                            <!-- Amount Selector (Card Style) -->
+                            <div class="form-group">
+                                <label class="form-label">Select Amount</label>
+                                <div class="donation-tiers">
+                                    <label class="tier-label">
+                                        <input type="radio" name="amount" value="30" checked>
+                                        <div class="tier-box">$30</div>
+                                    </label>
+                                    <label class="tier-label">
+                                        <input type="radio" name="amount" value="50">
+                                        <div class="tier-box">$50</div>
+                                    </label>
+                                    <label class="tier-label">
+                                        <input type="radio" name="amount" value="100">
+                                        <div class="tier-box">$100</div>
+                                    </label>
+                                    <label class="tier-label" style="grid-column: span 3;">
+                                        <div class="custom-amount-wrapper">
+                                            <span>$</span>
+                                            <input type="radio" name="amount" id="customRadio" value="custom" style="display:none;">
+                                            <input type="number" id="customInput" class="custom-input" min="1" placeholder="Enter custom amount...">
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
 
-                            <div class="donation-selection">
-                                <label>Select Donation Amount:</label>
-                                <div class="radio-group">
-                                    <label class="radio-option">
-                                        <input type="radio" name="amount" value="30" checked> $30
-                                    </label>
-                                    <label class="radio-option">
-                                        <input type="radio" name="amount" value="50"> $50
-                                    </label>
-                                    <label class="radio-option">
-                                        <input type="radio" name="amount" value="100"> $100
-                                    </label>
-                                    <label class="radio-option">
-                                        <input type="radio" name="amount" id="customRadio" value="custom"> $
-                                        <input type="number" id="customInput" class="custom-input" min="1">
-                                    </label>
+                            <!-- Donor Details -->
+                            <div class="form-group">
+                                <label class="form-label">Donor Information</label>
+                                <input type="text" id="fullName" class="form-input" placeholder="Full Name" required style="margin-bottom: 12px;">
+                                <div class="form-row">
+                                    <input type="email" id="emailAddress" class="form-input" placeholder="Email Address" required>
+                                    <input type="text" id="kappaChapter" class="form-input" placeholder="Kappa Chapter (Optional)">
                                 </div>
                             </div>
 
                             <!-- Expandable Shipping Section -->
                             <div class="shipping-section hidden" id="shippingSection">
-                                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 15px;">
-                                    <input type="checkbox" id="wantCoinCheckbox" style="width: 20px; height: 20px;" checked>
-                                    <span><strong>Yes, send me the Commemorative Coin!</strong><br><small>(Adds $2.50 for Shipping & Handling)</small></span>
+                                <label class="checkbox-wrapper">
+                                    <input type="checkbox" id="wantCoinCheckbox" checked>
+                                    <span class="checkbox-text">
+                                        <strong>Yes, send me the Commemorative Coin!</strong>
+                                        <small>Adds $2.50 for Shipping & Handling</small>
+                                    </span>
                                 </label>
                                 
                                 <div id="addressFields">
-                                    <input type="text" id="streetAddress" class="form-input" placeholder="[Street Address]">
-                                    <div class="shipping-grid">
-                                        <input type="text" id="city" class="form-input" placeholder="[City]">
-                                        <input type="text" id="zipCode" class="form-input" placeholder="[Zip Code]">
+                                    <input type="text" id="streetAddress" class="form-input" placeholder="Street Address" style="margin-bottom: 12px;">
+                                    <div class="form-row">
+                                        <input type="text" id="city" class="form-input" placeholder="City">
+                                        <input type="text" id="zipCode" class="form-input" placeholder="ZIP Code">
                                     </div>
                                 </div>
                             </div>
 
                             <!-- SECURITY HONEYPOT -->
-                                <div style="opacity: 0; position: absolute; top: -9999px; left: -9999px;" aria-hidden="true">
-                                    <label for="website_url">Leave this field blank</label>
-                                    <input type="text" id="website_url" name="website_url" tabindex="-1" autocomplete="off">
-                                </div>
+                            <div style="opacity: 0; position: absolute; top: -9999px; left: -9999px;" aria-hidden="true">
+                                <label for="website_url">Leave this field blank</label>
+                                <input type="text" id="website_url" name="website_url" tabindex="-1" autocomplete="off">
+                            </div>
 
-                            <button type="submit" class="btn-primary btn-submit" id="submitBtn">[Donate Now]</button>
+                            <button type="submit" class="btn-primary" id="submitBtn">Donate Now</button>
+                            
+                            <div class="secure-badge">
+                                <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                                Guaranteed Safe & Secure Checkout
+                            </div>
                         </form>
 
                         <!-- Success View (Hidden by default) -->
                         <div id="successView" class="thank-you-state">
-                            <h3>Registration Complete!</h3>
-                            <p>Thank you, <strong id="receiptName"></strong>, for supporting St. Jude Children's
-                                Research Hospital alongside the Palo Alto Alumni Chapter.</p>
-                            <p style="margin: 20px 0; font-size: 1.2rem;"><strong>Amount Donated: <span
-                                        id="receiptAmount"></span></strong></p>
-                            <p id="coinConfirmation" style="font-style: italic;"></p>
+                            <div class="success-icon">✓</div>
+                            <h3>Payment Complete!</h3>
+                            <p>Thank you, <strong id="receiptName"></strong>, for supporting St. Jude Children's Research Hospital.</p>
+                            
+                            <div class="receipt-box">
+                                <p style="margin-bottom: 5px; color: var(--text-main);"><strong>Total Contribution</strong></p>
+                                <p style="font-size: 1.5rem; color: var(--primary); font-weight: 700; margin-bottom: 15px;" id="receiptAmount"></p>
+                                <p id="coinConfirmation" style="font-size: 0.95rem;"></p>
+                            </div>
 
-                            <!-- NEW BUTTON ADDED HERE -->
-                            <button type="button" id="donateAgainBtn" class="btn-primary"
-                                style="margin-top: 25px; width: 100%;">[Make Another Donation]</button>
+                            <button type="button" id="donateAgainBtn" class="btn-primary">Make Another Donation</button>
                         </div>
 
                     </div>
@@ -576,18 +310,16 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <a href="#">Contact Us</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms</a>
+            <a href="#">Contact Us</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+            <p style="margin-top: 15px; font-size: 0.8rem;">Powered securely by Stripe & Firebase</p>
         </div>
     </footer>
 
     <!-- Interactive Logic -->
     <script type="module">
-
-        // Import the functions you need from the SDKs you need
-        // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js"; // <--- FIXED VERSION HERE
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
 
         document.addEventListener('DOMContentLoaded', () => {
             const firebaseConfig = {
@@ -600,12 +332,11 @@
                 measurementId: "G-Q14K98DYFC"
             };
 
-            // Initialize Firebase and Firestore
             const app = initializeApp(firebaseConfig);
             const analytics = getAnalytics(app);
             const db = getFirestore(app);
 
-            const currentAmountText = document.getElementById('currentAmountText')
+            const currentAmountText = document.getElementById('currentAmountText');
             const form = document.getElementById('donationForm');
             const radios = document.querySelectorAll('input[name="amount"]');
             const customRadio = document.getElementById('customRadio');
@@ -619,65 +350,39 @@
             const receiptName = document.getElementById('receiptName');
             const receiptAmount = document.getElementById('receiptAmount');
             const coinConfirmation = document.getElementById('coinConfirmation');
-            const donateAgainBtn = document.getElementById('donateAgainBtn'); // New Button Reference
+            const donateAgainBtn = document.getElementById('donateAgainBtn');
 
             let currentAmount = 30;
-            // --- NEW DYNAMIC PROGRESS BAR LOGIC ---
             const GOAL_AMOUNT = 5000;
-            let totalRaised = 0; // This will eventually be fetched from your database
 
             const progressBarFill = document.getElementById('progressBarFill');
-            const progressAmountText = document.getElementById('progressAmountText');
-            const percentTexts = document.querySelectorAll('.progress-percent-text');
 
-            // Function to update the visuals
             function updateProgressUI(amount) {
-                // Calculate percentage (cap at 100%)
                 let percent = (amount / GOAL_AMOUNT) * 100;
                 if (percent > 100) percent = 100;
 
-                // Format the number to look like currency (e.g., $1,000)
                 const formattedAmount = '$' + amount.toLocaleString('en-US', {
                     minimumFractionDigits: 0,
                     maximumFractionDigits: 0
                 });
 
-                // Animate the bar width
                 progressBarFill.style.width = `${percent}%`;
-
-                // Only show the dollar amount inside the bar if it's wide enough to fit the text (e.g., > 10%)
-                if (percent > 10) {
-                    progressAmountText.textContent = formattedAmount;
-                } else {
-                    progressAmountText.textContent = "";
-                }
-
-                // Update the % labels under the bar
-                percentTexts.forEach(span => {
-                    span.textContent = `${percent.toFixed(1)}%`;
-                });
-
-                currentAmountText.textContent = "$" + amount;
+                currentAmountText.textContent = formattedAmount;
             }
 
-            // --- REAL-TIME DATABASE LISTENER ---
-            // It constantly listens to the "test_totals" document in the "fundraiser" collection.
             const totalRef = doc(db, "fundraiser", "test_totals");
-
             onSnapshot(totalRef, (docSnapshot) => {
                 if (docSnapshot.exists()) {
                     const dbData = docSnapshot.data();
                     const liveTotal = dbData.amountRaised || 0;
-                    updateProgressUI(liveTotal); // Update the bar automatically!
+                    updateProgressUI(liveTotal);
                 }
             });
 
-            // Handle Logic for Hiding/Showing Shipping Details
             const wantCoinCheckbox = document.getElementById('wantCoinCheckbox');
             const addressFields = document.getElementById('addressFields');
             const SHIPPING_FEE = 2.50;
 
-            // Handle Logic for Hiding/Showing Shipping Details & Math
             const updateShippingVisibility = () => {
                 let checkoutTotal = currentAmount;
                 
@@ -688,23 +393,21 @@
                         addressFields.style.display = 'block';
                         shippingInputs.forEach(input => input.setAttribute('required', 'true'));
                         checkoutTotal += SHIPPING_FEE;
-                        submitBtn.textContent = `[Donate & Receive Coin (Total: $${checkoutTotal.toFixed(2)})]`;
+                        submitBtn.textContent = `Donate & Receive Coin ($${checkoutTotal.toFixed(2)})`;
                     } else {
                         addressFields.style.display = 'none';
                         shippingInputs.forEach(input => input.removeAttribute('required'));
-                        submitBtn.textContent = `[Donate $${checkoutTotal.toFixed(2)} Now]`;
+                        submitBtn.textContent = `Donate $${checkoutTotal.toFixed(2)}`;
                     }
                 } else {
                     shippingSection.classList.add('hidden');
                     shippingInputs.forEach(input => input.removeAttribute('required'));
-                    submitBtn.textContent = `[Donate $${checkoutTotal.toFixed(2)} Now]`;
+                    submitBtn.textContent = `Donate $${checkoutTotal.toFixed(2)}`;
                 }
             };
 
-            // Listen for checkbox toggle
             wantCoinCheckbox.addEventListener('change', updateShippingVisibility);
 
-            // Listen for Radio Button changes
             radios.forEach(radio => {
                 radio.addEventListener('change', (e) => {
                     if (e.target.value !== 'custom') {
@@ -715,7 +418,6 @@
                 });
             });
 
-            // Listen for Custom Input changes
             customInput.addEventListener('input', (e) => {
                 customRadio.checked = true; 
                 const val = parseFloat(e.target.value);
@@ -723,41 +425,34 @@
                 updateShippingVisibility();
             });
 
-            // Run once on load to set the button text
             updateShippingVisibility();
 
-            // --- NEW: CHECK IF WE JUST CAME BACK FROM STRIPE ---
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('success') === 'true') {
                 form.style.display = 'none';
                 successView.style.display = 'block';
                 receiptName.textContent = "Supporter";
-                receiptAmount.textContent = "Thank you for your generous gift!";
-                coinConfirmation.textContent = "If your donation qualified, your Commemorative Coin will be shipped soon.";
+                receiptAmount.textContent = "$" + currentAmount.toFixed(2);
+                coinConfirmation.textContent = "Your generous gift has been processed. If your donation qualified, your Commemorative Coin will be shipped soon.";
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
 
-            // --- NEW: STRIPE CHECKOUT FORM SUBMISSION ---
             form.addEventListener('submit', async (e) => {
-                e.preventDefault(); // Prevent page reload
+                e.preventDefault();
 
-                // --- SECURITY: HONEYPOT CHECK ---
                 const honeypot = document.getElementById('website_url').value;
                 if (honeypot !== "") {
                     console.warn("Spam bot detected.");
-                    return; // Silently kill the form submission
+                    return; 
                 }
 
-                // Change the button text to show it's working
-                submitBtn.textContent = "Processing...";
+                submitBtn.textContent = "Processing Securely...";
                 submitBtn.disabled = true;
 
-                 // Capture details
                 const donorName = document.getElementById('fullName').value.trim();
                 const email = document.getElementById('emailAddress').value.trim();
                 const chapter = document.getElementById('kappaChapter').value.trim() || "None";
                 
-                // Capture shipping if they qualified
                 let shippingAddress = "N/A";
                 let shippingCity = "N/A";
                 let shippingZip = "N/A";
@@ -769,7 +464,6 @@
                 }
 
                 try {
-                    // 1. Send ALL the data to our secure Netlify backend
                     const response = await fetch('/.netlify/functions/create-checkout', {
                         method: 'POST',
                         body: JSON.stringify({
@@ -786,41 +480,29 @@
 
                     const data = await response.json();
 
-                    // 2. If the backend replies with a Stripe URL, redirect the user there!
                     if (data.url) {
                         window.location.href = data.url;
                     } else {
                         alert("Error: " + data.error);
-                        submitBtn.textContent = "[Donate & Receive Coin]";
+                        updateShippingVisibility();
                         submitBtn.disabled = false;
                     }
                 } catch (err) {
                     alert("Something went wrong connecting to the checkout.");
-                    submitBtn.textContent = "[Donate & Receive Coin]";
+                    updateShippingVisibility();
                     submitBtn.disabled = false;
                 }
             });
 
-            // --- NEW: DONATE AGAIN LOGIC ---
             donateAgainBtn.addEventListener('click', () => {
-                // 1. Reset all the typed input fields in the form to blank
                 form.reset();
-
-                // 2. Reset our internal tracker back to the default $30
                 currentAmount = 30;
-
-                // 3. Make sure the shipping section is visible again (since default is $30)
-                updateShippingVisibility(currentAmount);
-
-                // 4. Swap the views: Hide success, Show form
+                updateShippingVisibility();
                 successView.style.display = 'none';
                 form.style.display = 'block';
-
-                // 5. Scroll smoothly back to the top of the form
                 form.scrollIntoView({ behavior: 'smooth', block: 'center' });
             });
         });
     </script>
 </body>
-
 </html>
