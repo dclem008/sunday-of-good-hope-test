@@ -543,6 +543,12 @@
                                 </div>
                             </div>
 
+                            <!-- SECURITY HONEYPOT -->
+                                <div style="opacity: 0; position: absolute; top: -9999px; left: -9999px;" aria-hidden="true">
+                                    <label for="website_url">Leave this field blank</label>
+                                    <input type="text" id="website_url" name="website_url" tabindex="-1" autocomplete="off">
+                                </div>
+
                             <button type="submit" class="btn-primary btn-submit" id="submitBtn">[Donate Now]</button>
                         </form>
 
@@ -734,6 +740,13 @@
             // --- NEW: STRIPE CHECKOUT FORM SUBMISSION ---
             form.addEventListener('submit', async (e) => {
                 e.preventDefault(); // Prevent page reload
+
+                // --- SECURITY: HONEYPOT CHECK ---
+                const honeypot = document.getElementById('website_url').value;
+                if (honeypot !== "") {
+                    console.warn("Spam bot detected.");
+                    return; // Silently kill the form submission
+                }
 
                 // Change the button text to show it's working
                 submitBtn.textContent = "Processing...";
