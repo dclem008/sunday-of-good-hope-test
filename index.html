@@ -528,17 +528,22 @@
                             </div>
 
                             <!-- Expandable Shipping Section -->
-                            <div class="shipping-section" id="shippingSection">
-                                <p>Coin Qualified! Please enter shipping address:</p>
-                                <input type="text" id="streetAddress" class="form-input" placeholder="[Street Address]">
-                                <div class="shipping-grid">
-                                    <input type="text" id="city" class="form-input" placeholder="[City]">
-                                    <input type="text" id="zipCode" class="form-input" placeholder="[Zip Code]">
+                            <div class="shipping-section hidden" id="shippingSection">
+                                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 15px;">
+                                    <input type="checkbox" id="wantCoinCheckbox" style="width: 20px; height: 20px;" checked>
+                                    <span><strong>Yes, send me the Commemorative Coin!</strong><br><small>(Adds $5.00 for Shipping & Handling)</small></span>
+                                </label>
+                                
+                                <div id="addressFields">
+                                    <input type="text" id="streetAddress" class="form-input" placeholder="[Street Address]">
+                                    <div class="shipping-grid">
+                                        <input type="text" id="city" class="form-input" placeholder="[City]">
+                                        <input type="text" id="zipCode" class="form-input" placeholder="[Zip Code]">
+                                    </div>
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn-primary btn-submit" id="submitBtn">[Donate & Receive
-                                Coin]</button>
+                            <button type="submit" class="btn-primary btn-submit" id="submitBtn">[Donate Now]</button>
                         </form>
 
                         <!-- Success View (Hidden by default) -->
@@ -662,50 +667,67 @@
             });
 
             // Handle Logic for Hiding/Showing Shipping Details
-            const updateShippingVisibility = (amount) => {
-                if (amount >= 30) {
+            const wantCoinCheckbox = document.getElementById('wantCoinCheckbox');
+            const addressFields = document.getElementById('addressFields');
+            const SHIPPING_FEE = 5.00;
+
+            // Handle Logic for Hiding/Showing Shipping Details & Math
+            const updateShippingVisibility = () => {
+                let checkoutTotal = currentAmount;
+                
+                if (currentAmount >= 30) {
                     shippingSection.classList.remove('hidden');
-                    shippingInputs.forEach(input => input.setAttribute('required', 'true'));
-                    submitBtn.textContent = "[Donate & Receive Coin]";
+                    
+                    if (wantCoinCheckbox.checked) {
+                        addressFields.style.display = 'block';
+                        shippingInputs.forEach(input => input.setAttribute('required', 'true'));
+                        checkoutTotal += SHIPPING_FEE;
+                        submitBtn.textContent = `[Donate & Receive Coin (Total: $${checkoutTotal.toFixed(2)})]`;
+                    } else {
+                        addressFields.style.display = 'none';
+                        shippingInputs.forEach(input => input.removeAttribute('required'));
+                        submitBtn.textContent = `[Donate $${checkoutTotal.toFixed(2)} Now]`;
+                    }
                 } else {
                     shippingSection.classList.add('hidden');
                     shippingInputs.forEach(input => input.removeAttribute('required'));
-                    submitBtn.textContent = "[Donate Now]";
+                    submitBtn.textContent = `[Donate $${checkoutTotal.toFixed(2)} Now]`;
                 }
             };
+
+            // Listen for checkbox toggle
+            wantCoinCheckbox.addEventListener('change', updateShippingVisibility);
 
             // Listen for Radio Button changes
             radios.forEach(radio => {
                 radio.addEventListener('change', (e) => {
                     if (e.target.value !== 'custom') {
                         currentAmount = parseFloat(e.target.value);
-                        customInput.value = ''; // clear custom input
-                        updateShippingVisibility(currentAmount);
+                        customInput.value = ''; 
+                        updateShippingVisibility();
                     }
                 });
             });
 
             // Listen for Custom Input changes
             customInput.addEventListener('input', (e) => {
-                customRadio.checked = true; // Auto-select custom radio
+                customRadio.checked = true; 
                 const val = parseFloat(e.target.value);
                 currentAmount = val > 0 ? val : 0;
-                updateShippingVisibility(currentAmount);
+                updateShippingVisibility();
             });
+
+            // Run once on load to set the button text
+            updateShippingVisibility();
 
             // --- NEW: CHECK IF WE JUST CAME BACK FROM STRIPE ---
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('success') === 'true') {
-                // Hide the form and show the thank you screen
                 form.style.display = 'none';
                 successView.style.display = 'block';
-                
-                // Show a generic success message (since they already paid)
                 receiptName.textContent = "Supporter";
-                receiptAmount.textContent = "$" + currentAmount + "\nThank you for your generous gift!";
+                receiptAmount.textContent = "Thank you for your generous gift!";
                 coinConfirmation.textContent = "If your donation qualified, your Commemorative Coin will be shipped soon.";
-                
-                // Clean up the URL so it looks nice again (removes the ?success=true)
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
 
@@ -744,7 +766,8 @@
                             chapter: chapter,
                             address: shippingAddress,
                             city: shippingCity,
-                            zip: shippingZip
+                            zip: shippingZip,
+                            shippingFee: (currentAmount >= 30 && wantCoinCheckbox.checked) ? SHIPPING_FEE : 0
                         })
                     });
 
