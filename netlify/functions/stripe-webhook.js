@@ -2,6 +2,14 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const admin = require('firebase-admin');
 const nodemailer = require('nodemailer'); 
 
+// SECURITY: Function to sanitize text to prevent HTML/XSS injection in emails
+const escapeHTML = (str) => {
+    if (!str) return "N/A";
+    return str.replace(/[&<>'"]/g, tag => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+    }[tag]));
+};
+
 if (!admin.apps.length) {
     admin.initializeApp({
         credential: admin.credential.cert({
@@ -41,18 +49,25 @@ exports.handler = async (event) => {
             await totalRef.set({
                 amountRaised: admin.firestore.FieldValue.increment(baseDonationAmount)
             }, { merge: true });
+
+            const safeName = escapeHTML(meta.donorName);
+            const safeChapter = escapeHTML(meta.chapter);
+            const safeAddress = escapeHTML(meta.shippingAddress);
+            const safeCity = escapeHTML(meta.shippingCity);
+            const safeZip = escapeHTML(meta.shippingZip);
+
             
             // TASK B: Save the Donor's Info
             await db.collection('donors').add({
-                name: meta.donorName,
+                name: safeName,
                 email: session.customer_details?.email || "Unknown",
-                chapter: meta.chapter,
+                chapter: safeChapter,
                 donationAmount: baseDonationAmount,
                 totalPaid: totalCharged,
-                qualifiesForCoin: baseDonationAmount >= 30 && meta.shippingAddress !== "N/A",
-                shippingAddress: meta.shippingAddress,
-                shippingCity: meta.shippingCity,
-                shippingZip: meta.shippingZip,
+                qualifiesForCoin: baseDonationAmount >= 30 && safeAddress !== "N/A",
+                shippingAddress: safeAddress,
+                shippingCity: safeCity,
+                shippingZip: safeZip,
                 date: admin.firestore.FieldValue.serverTimestamp(),
                 stripeTransactionId: session.id
             });
@@ -69,26 +84,26 @@ exports.handler = async (event) => {
             // 1. Admin Email
             const adminEmailHtml = `
                 <h2>New Donation Received!</h2>
-                <p><strong>Name:</strong> ${meta.donorName}</p>
+                <p><strong>Name:</strong> ${safeName}</p>
                 <p><strong>Donation:</strong> $${baseDonationAmount.toFixed(2)}</p>
                 ${shippingPaid > 0 ? `<p><strong>Shipping Paid:</strong> $${shippingPaid.toFixed(2)}</p>` : ``}
-                <p><strong>Chapter Affiliation:</strong> ${meta.chapter}</p>
+                <p><strong>Chapter Affiliation:</strong> ${safeChapter}</p>
                 <hr>
                 <h3>Shipping Details:</h3>
-                <p>${meta.shippingAddress}</p>
-                <p>${meta.shippingCity}, ${meta.shippingZip}</p>
+                <p>${safeAddress}</p>
+                <p>${safeCity}, ${safeZip}</p>
             `;
 
             await transporter.sendMail({
                 from: `"PAAC Notifications" <${process.env.EMAIL_USER}>`,
                 to: process.env.ADMIN_EMAIL_TO, 
-                subject: `New $${baseDonationAmount} Donation from ${meta.donorName}`,
+                subject: `New $${baseDonationAmount} Donation from ${safeName}`,
                 html: adminEmailHtml
             });
 
             // 2. Donor Receipt
             const donorEmailHtml = `
-                <h2>Thank you, ${meta.donorName}!</h2>
+                <h2>Thank you, ${safeName}!</h2>
                 <p>On behalf of the Palo Alto Alumni Chapter of Kappa Alpha Psi and St. Jude Children's Research Hospital, thank you for your generous gift.</p>
                 <p><strong>Donation Amount:</strong> $${baseDonationAmount.toFixed(2)}</p>
                 ${shippingPaid > 0 ? `<p><strong>Shipping Fee:</strong> $${shippingPaid.toFixed(2)}</p>` : ``}
