@@ -427,14 +427,25 @@
 
             updateShippingVisibility();
 
+            // --- Check if we get successful payment ---
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('success') === 'true') {
                 form.style.display = 'none';
                 successView.style.display = 'block';
-                receiptName.textContent = "Supporter";
-                receiptAmount.textContent = "$" + currentAmount.toFixed(2);
+
+                // 1. Retrieve the exact data from browser memory (or default to 30/Supporter if missing)
+                const savedAmount = localStorage.getItem('recentDonationAmount') || "30.00";
+                const savedName = localStorage.getItem('recentDonorName') || "Supporter";
+
+                // 2. Display the correct data
+                receiptName.textContent = savedName;
+                receiptAmount.textContent = "$" + savedAmount;
                 coinConfirmation.textContent = "Your generous gift has been processed. If your donation qualified, your Commemorative Coin will be shipped soon.";
+                
+                // 3. Clean up the URL and erase the short-term memory
                 window.history.replaceState({}, document.title, window.location.pathname);
+                localStorage.removeItem('recentDonationAmount');
+                localStorage.removeItem('recentDonorName');
             }
 
             form.addEventListener('submit', async (e) => {
@@ -446,24 +457,38 @@
                     return; 
                 }
 
-                submitBtn.textContent = "Processing Securely...";
+                submitBtn.textContent = "Processing...";
                 submitBtn.disabled = true;
 
+                // Capture details
                 const donorName = document.getElementById('fullName').value.trim();
                 const email = document.getElementById('emailAddress').value.trim();
                 const chapter = document.getElementById('kappaChapter').value.trim() || "None";
                 
+                // Capture shipping if they qualified
                 let shippingAddress = "N/A";
                 let shippingCity = "N/A";
                 let shippingZip = "N/A";
+                let finalShippingFee = 0;
                 
                 if (currentAmount >= 30) {
                     shippingAddress = document.getElementById('streetAddress').value.trim();
                     shippingCity = document.getElementById('city').value.trim();
                     shippingZip = document.getElementById('zipCode').value.trim();
+                    
+                    if (wantCoinCheckbox.checked) {
+                        finalShippingFee = SHIPPING_FEE;
+                    }
                 }
 
+                // --- SAVE DATA FOR THE RETURN TRIP ---
+                const totalCharged = currentAmount + finalShippingFee;
+                localStorage.setItem('recentDonationAmount', totalCharged.toFixed(2));
+                localStorage.setItem('recentDonorName', donorName);
+                // -------------------------------------------------------
+
                 try {
+                    // 1. Send ALL the data to our secure Netlify backend
                     const response = await fetch('/.netlify/functions/create-checkout', {
                         method: 'POST',
                         body: JSON.stringify({
@@ -474,7 +499,7 @@
                             address: shippingAddress,
                             city: shippingCity,
                             zip: shippingZip,
-                            shippingFee: (currentAmount >= 30 && wantCoinCheckbox.checked) ? SHIPPING_FEE : 0
+                            shippingFee: finalShippingFee
                         })
                     });
 
