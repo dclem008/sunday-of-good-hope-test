@@ -96,6 +96,7 @@ class UIManager {
             formCard: document.getElementById('donationForm'),
             successCard: document.getElementById('successView'),
             receiptName: document.getElementById('receiptName'),
+            coinConfirmation: document.getElementById('coinConfirmation'),
             receiptAmount: document.getElementById('receiptAmount')
         };
     }
@@ -133,6 +134,7 @@ class UIManager {
         this.elements.successCard.style.display = 'block';
         this.elements.receiptName.textContent = name;
         this.elements.receiptAmount.textContent = "$" + amount;
+        this.elements.coinConfirmation.textContent = "Your generous gift has been processed. If your donation qualified, your Commemorative Coin will be shipped soon.";
     }
     resetForm() {
         this.elements.formCard.reset();
