@@ -97,9 +97,106 @@
             letter-spacing: 1.2px;
             color: var(--text-muted);
             text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-align: right;
+        }
+
+        .header-chapter img {
+            height: 40px;
+            width: auto;
+            border-radius: 4px;
+            object-fit: contain;
+        }
+
+        /* Animated Gradient Underline for Header Links (St. Jude & Kappa) */
+        .header-chapter a,
+        .logo-text a {
+            color: var(--primary);
+            text-decoration: none;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .header-chapter a:hover,
+        .logo-text a:hover {
+            color: var(--primary-hover);
+        }
+
+        .header-chapter a::after,
+        .logo-text a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent-gold) 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease-out;
+        }
+
+        .header-chapter a:hover::after,
+        .logo-text a:hover::after {
+            transform: scaleX(1);
         }
 
         /* Immersive Hero Section */
+
+        /* Hero Partnership Badges */
+        .hero-partnership {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            /* Widened gap for bigger logos */
+            margin-bottom: 35px;
+            /* Pushes the heading down more to make room */
+            animation: fadeDown 0.8s ease-out;
+        }
+
+        /* Transparent Hero Badges */
+        .hero-badge {
+            height: 130px;
+            width: 220px;
+            background: transparent;
+            /* Removes the white card */
+            object-fit: contain;
+
+            /* This creates a shadow that hugs the actual logo shape! */
+            filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.4));
+            transition: var(--transition);
+        }
+
+        /* Optional: Slight lift effect when users hover over the logos */
+        .hero-badge:hover {
+            transform: translateY(-3px);
+            filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.5));
+        }
+
+        /* Scaled up the elegant connecting plus sign */
+        .partnership-plus {
+            font-size: 3.5rem;
+            /* Almost doubled to match the logo height */
+            color: var(--accent-gold);
+            font-weight: 300;
+            font-family: 'Inter', sans-serif;
+        }
+
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .hero {
             background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
             color: white;
@@ -716,9 +813,44 @@
                 grid-template-columns: 1fr;
             }
 
-            .header-chapter {
-                display: none;
+            /* NEW: Shrink the transparent badges proportionally on mobile */
+            .hero-badge {
+                height: 70px;
+                width: 120px;
+                /* Removed padding and border-radius here as well */
             }
 
-            /* Hide long text on mobile */
+            .partnership-plus {
+                font-size: 2.5rem;
+            }
+
+            /* NEW: Mobile Header "Stack & Scroll" */
+            .header {
+                position: relative;
+                /* Un-stickies the header so it doesn't block the screen */
+                padding: 15px 10px;
+            }
+
+            .header .container {
+                flex-direction: column;
+                /* Stacks the St. Jude and Kappa sections vertically */
+                gap: 15px;
+            }
+
+            .logo-text {
+                justify-content: center;
+                /* Centers the St. Jude side */
+            }
+
+            .header-chapter {
+                display: flex;
+                /* Overrides the old display:none */
+                justify-content: center;
+                /* Centers the Kappa side */
+                text-align: center;
+                flex-wrap: wrap;
+                /* Allows the long text to wrap to a new line if needed */
+                font-size: 0.75rem;
+                /* Shrinks the text slightly for smaller screens */
+            }
         }
