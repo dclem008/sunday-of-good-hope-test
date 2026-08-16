@@ -157,29 +157,76 @@
             animation: fadeDown 0.8s ease-out;
         }
 
-        /* Transparent Hero Badges */
-        .hero-badge {
+        /* Hero Partnership Container */
+        .hero-partnership {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 35px;
+            animation: fadeDown 0.8s ease-out;
+        }
+
+        /* 1. The Wrapper (Holds the invisible spotlight) */
+        .badge-wrap {
+            position: relative;
             height: 130px;
             width: 220px;
-            background: transparent;
-            /* Removes the white card */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 24px;
+            /* Rounded corners */
+            cursor: pointer;
+        }
+
+        /* 2. The Spotlight Gradient (Hidden by default) */
+        .badge-wrap::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            /* Radial gradient: Red in center fading to completely invisible at the edges */
+            background: radial-gradient(ellipse at center, rgba(158, 27, 50, 0.4) 0%, rgba(158, 27, 50, 0) 70%);
+
+            border-radius: inherit;
+            /* Copies the rounded corners */
+            opacity: 0;
+            /* Invisible until hovered */
+            transition: opacity 0.4s ease;
+            /* Buttery smooth fade in */
+            z-index: 0;
+        }
+
+        /* 3. Trigger the Fade on Hover */
+        .badge-wrap:hover::before {
+            opacity: 1;
+        }
+
+        /* 4. The Image Itself */
+        .hero-badge {
+            max-height: 90px;
+            /* Gives room around the logo for the glow to be seen */
+            max-width: 180px;
             object-fit: contain;
-
-            /* This creates a shadow that hugs the actual logo shape! */
+            z-index: 1;
+            /* Keeps image above the red glow */
             filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.4));
-            transition: var(--transition);
+            transition: transform 0.4s ease, filter 0.4s ease;
         }
 
-        /* Optional: Slight lift effect when users hover over the logos */
-        .hero-badge:hover {
+        /* Subtle lift of the image when hovered */
+        .badge-wrap:hover .hero-badge {
             transform: translateY(-3px);
-            filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.5));
+            filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.6));
         }
 
-        /* Scaled up the elegant connecting plus sign */
+        /* The Plus Sign */
         .partnership-plus {
             font-size: 3.5rem;
-            /* Almost doubled to match the logo height */
             color: var(--accent-gold);
             font-weight: 300;
             font-family: 'Inter', sans-serif;
@@ -851,11 +898,15 @@
                 grid-template-columns: 1fr;
             }
 
-            /* NEW: Shrink the transparent badges proportionally on mobile */
+            /* NEW: Shrink the wrapped badges on mobile */
+            .badge-wrap {
+                height: 80px;
+                width: 140px;
+            }
+
             .hero-badge {
-                height: 70px;
-                width: 120px;
-                /* Removed padding and border-radius here as well */
+                max-height: 50px;
+                max-width: 110px;
             }
 
             .partnership-plus {
