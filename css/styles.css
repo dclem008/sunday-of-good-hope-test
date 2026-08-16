@@ -208,9 +208,9 @@
 
         /* 4. The Image Itself */
         .hero-badge {
-            max-height: 90px;
+            max-height: 200px;
             /* Gives room around the logo for the glow to be seen */
-            max-width: 180px;
+            max-width: 440px;
             object-fit: contain;
             z-index: 1;
             /* Keeps image above the red glow */
@@ -905,8 +905,8 @@
             }
 
             .hero-badge {
-                max-height: 100px;
-                max-width: 220px;
+                max-height: 190px;
+                max-width: 410px;
             }
 
             .partnership-plus {
