@@ -790,6 +790,44 @@
             justify-content: flex-end;
         }
 
+        /* Sticky Side Menu (Desktop) */
+        .sticky-side-menu {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--bg-card);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            border-radius: 12px 0 0 12px;
+            z-index: 999;
+            padding: 10px 5px;
+            border: 1px solid var(--border-light);
+            border-right: none;
+        }
+
+        .side-icon {
+            padding: 12px;
+            color: var(--text-muted);
+            transition: var(--transition);
+            display: flex;
+            justify-content: center;
+        }
+
+        .side-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+            transition: var(--transition);
+        }
+
+        .side-icon:hover {
+            color: var(--primary);
+            transform: translateX(-3px);
+            /* Gentle slide-left animation */
+        }
+
         /* Responsive */
         @media (max-width: 900px) {
             .content-grid {
@@ -852,5 +890,32 @@
                 /* Allows the long text to wrap to a new line if needed */
                 font-size: 0.75rem;
                 /* Shrinks the text slightly for smaller screens */
+            }
+
+            /* NEW: Sticky Bottom Bar for Mobile */
+            .sticky-side-menu {
+                top: auto;
+                bottom: 0;
+                right: 0;
+                left: 0;
+                transform: none;
+                flex-direction: row;
+                justify-content: space-evenly;
+                border-radius: 16px 16px 0 0;
+                border: none;
+                border-top: 1px solid var(--border-light);
+                box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+                padding: 8px 0;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+            }
+
+            .side-icon {
+                padding: 10px 30px;
+            }
+
+            .side-icon:hover {
+                transform: translateY(-3px);
+                /* Slides UP on mobile instead of left */
             }
         }

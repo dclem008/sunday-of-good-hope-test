@@ -44,7 +44,7 @@ class CheckoutService {
             body: JSON.stringify(payload)
         });
         const data = await response.json();
-        
+
         if (data.url) {
             window.location.href = data.url;
         } else {
@@ -57,14 +57,17 @@ class ModalManager {
     constructor() {
         this.modals = {
             privacy: document.getElementById('privacyModal'),
-            terms: document.getElementById('termsModal')
+            terms: document.getElementById('termsModal'),
+            about: document.getElementById('aboutModal')
         };
         this.bindEvents();
     }
     bindEvents() {
         document.getElementById('openPrivacy').addEventListener('click', (e) => this.open(e, this.modals.privacy));
         document.getElementById('openTerms').addEventListener('click', (e) => this.open(e, this.modals.terms));
-        
+
+        document.getElementById('openAbout').addEventListener('click', (e) => this.open(e, this.modals.about));
+
         document.querySelectorAll('.modal-close-icon, .modal-close-btn').forEach(btn => {
             btn.addEventListener('click', () => this.closeAll());
         });
@@ -150,10 +153,10 @@ class FundraiserApp {
         this.db = new DatabaseService(CONFIG.firebase);
         this.ui = new UIManager();
         this.modals = new ModalManager();
-        
+
         this.bindEvents();
         this.checkReturnState();
-        
+
         this.db.listenToLiveTotals((total) => {
             this.ui.updateProgressBar(total, CONFIG.fundraiser.goalAmount);
         });
@@ -163,7 +166,7 @@ class FundraiserApp {
             radio.addEventListener('change', (e) => {
                 if (e.target.value !== 'custom') {
                     this.currentAmount = parseFloat(e.target.value);
-                    document.getElementById('customInput').value = ''; 
+                    document.getElementById('customInput').value = '';
                     this.refreshUI();
                 }
             });
@@ -205,7 +208,7 @@ class FundraiserApp {
         const wantsCoin = document.getElementById('wantCoinCheckbox').checked;
         const isQualifying = this.currentAmount >= CONFIG.fundraiser.coinQualifyingAmount;
         let finalShippingFee = (isQualifying && wantsCoin) ? CONFIG.fundraiser.shippingFee : 0;
-        
+
         const payload = {
             amount: this.currentAmount,
             shippingFee: finalShippingFee,
