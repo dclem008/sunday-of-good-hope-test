@@ -23,6 +23,8 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            -webkit-tap-highlight-color: transparent;
+            /* Removes the blue tap flash on mobile */
         }
 
         body {
@@ -222,6 +224,14 @@
         .badge-wrap:hover .hero-badge {
             transform: translateY(-3px);
             filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.6));
+        }
+
+        /* Tactile tap effect for mobile */
+        .badge-wrap:active .hero-badge {
+            transform: scale(0.92);
+            /* The logo shrinks inward instantly on tap */
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+            /* The shadow compresses */
         }
 
         /* The Plus Sign */
@@ -502,6 +512,13 @@
             background: #F7FAFC;
         }
 
+        .tier-label:active .tier-box {
+            transform: scale(0.95);
+            /* Squishes the box on tap */
+            background: #E2E8F0;
+            /* Flashes a slightly darker gray to confirm the tap */
+        }
+
         /* Checked State */
         .tier-label input[type="radio"]:checked+.tier-box {
             border-color: var(--primary);
@@ -614,6 +631,13 @@
             box-shadow: 0 4px 14px rgba(158, 27, 50, 0.3);
             margin-top: 30px;
             font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.97);
+            /* The button 'squishes' inward when tapped */
+            box-shadow: 0 2px 8px rgba(158, 27, 50, 0.4);
+            /* The shadow shrinks, making it look pressed */
         }
 
         .btn-primary:hover {
